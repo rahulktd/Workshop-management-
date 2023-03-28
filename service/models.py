@@ -12,7 +12,7 @@ class Customer(models.Model):
     Address = models.CharField(max_length=100)
     email = models.EmailField()
     mobile = models.CharField(max_length=20)
-    # profilepicture = models.ImageField()
+    profilepicture = models.FileField(upload_to='documents/')
 
 class Worker(models.Model):
     user = models.ForeignKey(Login,on_delete=models.CASCADE)
@@ -20,4 +20,4 @@ class Worker(models.Model):
     Address = models.CharField(max_length=100)
     email = models.EmailField()
     mobile = models.CharField(max_length=20)
-    # profilepicture = models.ImageField()
+    profilepicture = models.FileField(upload_to='documents/')

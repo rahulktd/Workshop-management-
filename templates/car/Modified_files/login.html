@@ -21,6 +21,7 @@
 					<h2 class="heading-section">Login</h2>
 				</div>
 			</div>
+			{% block content %}
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
@@ -59,6 +60,8 @@
 				</div>
 			</div>
 		</div>
+					{% endblock %}
+
 	</section>
 
 	<script src=" {% static 'login/js/jquery.min.js' %} "></script>
