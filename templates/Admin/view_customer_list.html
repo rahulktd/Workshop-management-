@@ -1,0 +1,44 @@
+{% extends "Admin/Admin_dash.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<table class="table table-hover table-bordered border-primary">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Profile Picture</th>
+        <th scope="col">Delete</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in data %}
+    <tr>
+        <td scope="row">{{i.Name}}</td>
+        <td scope="row">{{i.mobile}}</td>
+        <td><img src="{{i.profilepicture.url}}" alt="hi" width="250" height="250"></td>
+        <td scope="row">
+            <form action="{% url 'delete_customer' i.id %}" method="POST" class="d-inline-block">
+{% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="delete"/>
+            </form>
+        </td>
+
+        </td>
+
+
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+</body>
+</html>
