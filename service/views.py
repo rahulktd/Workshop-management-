@@ -43,13 +43,18 @@ def login_view(request):
         username = request.POST.get('uname')
         password = request.POST.get('pass')
         user = authenticate(request,username=username,password=password)
+        print(user)
         if user is not None:
             login(request, user)
+            print(user)
             if user.is_staff:
+                print(user)
                 return redirect('Login')
             elif user.is_worker:
+                print(user)
                 return redirect('Worker_Login')
             elif user.is_user:
+                # print(user)
                 return redirect('User_Login1')
         else:
             messages.info(request, 'Invalid Credentials')
@@ -80,16 +85,19 @@ def customer_register(request):
         customer_form = CustomerForm(request.POST,request.FILES)
         if user_form.is_valid() and customer_form.is_valid():
             u = user_form.save(commit=False)
-            u.is_customer = True
+            u.is_user = True
             u.save()
             customer = customer_form.save(commit=False)
             customer.user = u
             customer.save()
             messages.info(request, 'Customer Registration Successful')
             return redirect('login_view')
-    return render(request, 'USER_TEMPLATE/user_reg_form.html', {'user_form': user_form, 'customer_form': customer_form})
+    return render(request, 'USER_TEMPLATE/customer_reg.html', {'user_form': user_form, 'customer_form': customer_form})
 
 #view workers
 def work_view(request):
     data = Worker.objects.all()
     return render(request, 'WORKER_TEMPLATE/worker_view.html', {"data": data})
+
+def signup(request):
+    return render(request,'signup_common.html')

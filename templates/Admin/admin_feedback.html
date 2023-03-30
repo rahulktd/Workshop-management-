@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Feedback Sent By Customer</h2>
+<br>
+{%for i in feedback%}
+
+
+  {{i.date}} |By :{{i.user}}
+    <br>
+    {{i.message}}
+<hr>
+<br>
+{%endfor%}
+</body>
+</html>

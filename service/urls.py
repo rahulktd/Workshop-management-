@@ -1,5 +1,5 @@
 from django.urls import path
-from service import views, admin_view
+from service import views, admin_view, customer_view
 
 urlpatterns = [
     path('start',views.start,name='start'),
@@ -12,6 +12,7 @@ urlpatterns = [
     path('worker_register',views.worker_register,name='worker_register'),
     path('customer_register',views.customer_register,name='customer_register'),
     path('work_view',views.work_view,name='work_view'),
+    path('signup',views.signup,name='signup'),
 
 
 #admin
@@ -21,5 +22,16 @@ urlpatterns = [
     path('delete_customer/<int:id>/',admin_view.delete_customer,name='delete_customer'),
     path('delete_worker/<int:id>/',admin_view.delete_worker,name='delete_worker'),
     path('update_worker/<int:id>/',admin_view.update_worker,name='update_worker'),
+    path('admin_feedback_view', admin_view.admin_feedback_view, name='admin_feedback_view'),
+
+
+
+
+
+    #user
+    path('customer_feedback', customer_view.customer_feedback, name='customer_feedback'),
+    path('feedback_view', customer_view.feedback_view, name='feedback_view'),
+
+
 
 ]

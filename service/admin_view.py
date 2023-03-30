@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-
+from service import models
 from service.forms import WorkerForm
-from service.models import Worker, Customer
+from service.models import Worker, Customer, Feedback
 
 
 def admin_login(request):
@@ -34,3 +34,7 @@ def update_worker(request, id):
             form.save()
             return redirect('worker_view')
     return render(request,'Admin/update_worker.html', {'form': form})
+
+def admin_feedback_view(request):
+    feedback=Feedback.objects.all()
+    return render(request,'Admin/admin_feedback.html',{'feedback':feedback})

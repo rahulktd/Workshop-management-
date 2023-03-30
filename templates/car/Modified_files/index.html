@@ -20,6 +20,9 @@
 <script type="text/javascript" src=" {% static 'js/html5.js' %} "></script>
 <link rel="stylesheet" href=" {% static 'css/ie.css' %} " type="text/css" media="screen">
 <![endif]-->
+  <style type='text/css'>
+
+  </style>
 </head>
 <body id="page1">
 <div class="main-bg">
@@ -35,12 +38,12 @@
         </div>
         <nav>
           <ul class="menu">
-            <li><a class="active" href=" {% static 'index.html' %} ">Home</a></li>
+            <li><a class="active" href=" {% url 'Home' %} ">Home</a></li>
             <li><a href=" {% static 'about.html' %} ">About Us</a></li>
             <li><a href=" {% static 'maintenance.html' %} ">Maintenance </a></li>
             <li><a href=" {% static 'repair.html' %} ">Repair</a></li>
-            <li><a href=" {% static 'price.html' %} ">Price List</a></li>
-            <li><a href=" {% static 'locations.html' %} ">Locations</a></li>
+            <li><button><a href=" {% url 'login_view' %} ">Sign In</a></button></li>
+            <li><button><a href=" {% url 'signup' %} ">create an account</a></button></li>
           </ul>
         </nav>
         <div class="slider-wrapper">

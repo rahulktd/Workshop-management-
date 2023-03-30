@@ -14,7 +14,7 @@
     <link rel="stylesheet" href=" {% static 'login/css/style.css' %} ">
 
 </head>
-<body class="img js-fullheight" style="background-image: url( {% static 'login/images/carbg.jpg' %} ); ">
+<body class="img js-fullheight" style="background-color:white ">
 <section class="ftco-section">
     <div class="container">
 
@@ -23,7 +23,6 @@
                 {% csrf_token %}
                 {{customer_form|crispy}}
                 {{user_form | crispy}}
-               <td> <img src="{{i.emp_image.url}}" alt="profilepicture" width="250" height="250"> </td>
 
 
                 <button type="submit" class="btn btn-primary">Register</button>
