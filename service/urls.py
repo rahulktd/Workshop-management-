@@ -23,14 +23,14 @@ urlpatterns = [
     path('delete_worker/<int:id>/',admin_view.delete_worker,name='delete_worker'),
     path('update_worker/<int:id>/',admin_view.update_worker,name='update_worker'),
     path('admin_feedback_view', admin_view.admin_feedback_view, name='admin_feedback_view'),
-
-
-
+    path('reply_feedback/<int:id>/', admin_view.reply_feedback, name='reply_feedback'),
+    path('admin_feedback_reply', admin_view.admin_feedback_reply, name='admin_feedback_reply'),
 
 
     #user
     path('customer_feedback', customer_view.customer_feedback, name='customer_feedback'),
-    path('feedback_view', customer_view.feedback_view, name='feedback_view'),
+    # path('feedback_view', customer_view.customer_feedback_view, name='feedback_view'),
+    path('customer_feedback_view', customer_view.customer_feedback_view, name='customer_feedback_view'),
 
 
 

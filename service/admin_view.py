@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from service import models
 from service.forms import WorkerForm
@@ -38,3 +39,16 @@ def update_worker(request, id):
 def admin_feedback_view(request):
     feedback=Feedback.objects.all()
     return render(request,'Admin/admin_feedback.html',{'feedback':feedback})
+
+def reply_feedback(request, id):
+    feedback = Feedback.objects.get(id=id)
+    if request.method == 'POST':
+        r = request.POST.get('reply')
+        feedback.reply=r
+        feedback.save()
+        messages.info(request,'Reply send')
+        return redirect('admin_feedback_view')
+    return render(request,'Admin/reply_feedback_admin.html',{'feedback':feedback})
+
+def admin_feedback_reply(request):
+    return render(request,'Admin/reply_feedback_admin.html')

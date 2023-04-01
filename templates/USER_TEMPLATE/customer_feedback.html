@@ -1,3 +1,5 @@
+{% extends "USER_TEMPLATE/USER_DASH.html" %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +7,12 @@
     <title>Title</title>
 </head>
 <body>
+{% block content %}
 <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{feedback_form}}
-
-
-
-                <button type="submit" class="btn btn-primary">Register</button>
-
-            </form>
+    {% csrf_token %}
+    {{feedback_form}}
+    <button type="submit" class="btn btn-primary">send</button>
+</form>
+{% endblock %}
 </body>
 </html>
