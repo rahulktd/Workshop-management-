@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.shortcuts import redirect, render, get_object_or_404
 
 from service.forms import FeedbackForm
@@ -31,16 +32,15 @@ def customer_feedback_view(request):
 #     customer = get_object_or_404(Customer, id=customer_id)
 #     return render(request, 'USER_TEMPLATE/USER_DASH.html', {'customer': customer})
 
-# def reply_view(request):
-#     feedback = Feedback.objects.get(id=id)
-#     if request.method == 'POST':
-#         reply_content = request.POST.get('reply')
-#         feedback.reply = reply_content
-#         feedback.save()
-#         return redirect('reply_view', id=id)
-#     else:
-#         form = FeedbackForm()
-#     return render(request, 'USER_TEMPLATE/customer_feedback_view.html', {
-#         'feedback': feedback,
-#         'form': form,
-#     })
+
+def reply_view(request):
+    feedback = Feedback.objects.get(id=id)
+    if request.method == 'POST':
+        reply_v = request.POST.get('reply')
+        feedback.reply = reply_v
+        feedback.save()
+        return redirect('reply_view', id=id)
+    else:
+        form = FeedbackForm()
+    return render(request, 'USER_TEMPLATE/customer_feedback_view.html', {'feedback': feedback,})
+

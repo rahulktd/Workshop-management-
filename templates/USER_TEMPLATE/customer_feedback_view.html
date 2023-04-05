@@ -19,15 +19,14 @@
 <br>
 {{i.reply}}
 
+{% if feedback.reply %}
+    <h2>Reply</h2>
+    <p>{{ feedback.reply }}</p>
+  {% else %}
+  {% endif %}
 <hr>
-<!--{% if feedback.reply %}-->
-<!--    <h2>Reply</h2>-->
-<!--    <p>{{ feedback.reply }}</p>-->
-<!--  {% else %}-->
-<!--  {% endif %}-->
-<!--<br>-->
-<!--{%endfor%}-->
-
+<br>
+{%endfor%}
 {% endblock %}
 </body>
 </html>

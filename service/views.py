@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # from django.core.checks import messages
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -60,6 +60,7 @@ def login_view(request):
     return render(request, 'car/Modified_files/login.html')
 
 
+
 def worker_register(request):
     user_form = LoginRegister()
     worker_form = WorkerForm()
@@ -104,3 +105,7 @@ def work_view(request):
 
 def signup(request):
     return render(request, 'signup_common.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
