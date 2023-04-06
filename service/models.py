@@ -17,6 +17,9 @@ class Customer(models.Model):
 
 class WorkerCategory(models.Model):
     Title = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.Title
 class Worker(models.Model):
     user = models.ForeignKey(Login,on_delete=models.CASCADE)
     Name = models.CharField(max_length=25)
