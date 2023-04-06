@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from service import models
-from service.forms import WorkerForm
-from service.models import Worker, Customer, Feedback
+from service.forms import WorkerForm, SkillForm
+from service.models import Worker, Customer, Feedback, WorkerCategory
 
 
 def admin_login(request):
@@ -52,3 +52,16 @@ def reply_feedback(request, id):
 
 def admin_feedback_reply(request):
     return render(request,'Admin/reply_feedback_admin.html')
+def list_of_categories(request):
+        categ = WorkerCategory.objects.all()
+        return render(request, 'Admin/list_of_skills.html', {'categ': categ})
+def skills_add(request):
+    if request.method == 'POST':
+        form = SkillForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_of_categories')
+    else:
+        form = SkillForm()
+    return render(request,'Admin/admin_skills.html',{'form':form})
+

@@ -26,6 +26,8 @@ urlpatterns = [
     path('admin_feedback_view', admin_view.admin_feedback_view, name='admin_feedback_view'),
     path('reply_feedback/<int:id>/', admin_view.reply_feedback, name='reply_feedback'),
     path('admin_feedback_reply', admin_view.admin_feedback_reply, name='admin_feedback_reply'),
+    path('list_of_categories', admin_view.list_of_categories, name='list_of_categories'),
+    path('skills_add', admin_view.skills_add, name='skills_add'),
 
 
     #user

@@ -14,6 +14,9 @@ class Customer(models.Model):
     mobile = models.CharField(max_length=20)
     profilepicture = models.FileField(upload_to='documents/')
 
+
+class WorkerCategory(models.Model):
+    Title = models.CharField(max_length=20)
 class Worker(models.Model):
     user = models.ForeignKey(Login,on_delete=models.CASCADE)
     Name = models.CharField(max_length=25)
@@ -21,9 +24,12 @@ class Worker(models.Model):
     email = models.EmailField()
     mobile = models.CharField(max_length=20)
     profilepicture = models.FileField(upload_to='documents/')
+    Work_Category = models.ForeignKey(WorkerCategory,on_delete=models.CASCADE)
 
 class Feedback(models.Model):
     user = models.ForeignKey(Login,on_delete=models.DO_NOTHING)
     date = models.DateField(auto_now=True)
     message = models.CharField(max_length=150)
     reply = models.CharField(max_length=150, null=True, blank=True)
+
+

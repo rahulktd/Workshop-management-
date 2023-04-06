@@ -1,0 +1,11 @@
+{% extends "Admin/Admin_dash.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>List of Skills</h1>
+    <ul>
+    {% for categ in categ %}
+        <li>{{ categ.Title }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

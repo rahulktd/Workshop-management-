@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 # from django.forms import forms
-from service.models import Login, Customer, Worker, Feedback
+from service.models import Login, Customer, Worker, Feedback, WorkerCategory
 from django import forms
 
 
@@ -27,5 +27,9 @@ class LoginRegister(UserCreationForm):
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = "__all__"
-        exclude = ("reply","user",)
+        fields = ('message',)
+
+class SkillForm(forms.ModelForm):
+    class Meta:
+        model = WorkerCategory
+        fields = ('Title',)
