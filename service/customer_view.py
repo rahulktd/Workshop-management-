@@ -1,9 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import redirect, render, get_object_or_404
-
+#
+# from service.forms import FeedbackForm
+# from service.models import Customer, Feedback
+#
+#
 from service.forms import FeedbackForm
-from service.models import Customer, Feedback
+from service.models import Feedback
 
 
 def customer_feedback(request):
@@ -20,19 +24,19 @@ def customer_feedback(request):
     else:
         feedback_form = FeedbackForm
     return render(request,'USER_TEMPLATE/customer_feedback.html',{'feedback_form':feedback_form})
-
+#
 # def feedback_view(request):
 #     return render(request,'USER_TEMPLATE/customer_feedback_view.html')
 def customer_feedback_view(request):
     u = request.user
     feedback=Feedback.objects.filter(user=u)
     return render(request,'USER_TEMPLATE/customer_feedback_view.html',{'feedback':feedback})
-
+#
 # def customer_detail(request, customer_id):
 #     customer = get_object_or_404(Customer, id=customer_id)
 #     return render(request, 'USER_TEMPLATE/USER_DASH.html', {'customer': customer})
 
-
+#
 def reply_view(request):
     feedback = Feedback.objects.get(id=id)
     if request.method == 'POST':
@@ -43,4 +47,4 @@ def reply_view(request):
     else:
         form = FeedbackForm()
     return render(request, 'USER_TEMPLATE/customer_feedback_view.html', {'feedback': feedback,})
-
+#

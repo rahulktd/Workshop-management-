@@ -13,11 +13,11 @@
     <tr>
         <th scope="col">Name</th>
         <th scope="col">Phone</th>
+        <th scope="col">Work_Category</th>
         <th scope="col">Profile Picture</th>
+        <th scope="col" >Action</th>
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
-
-
     </tr>
     </thead>
     <tbody>
@@ -25,20 +25,30 @@
     <tr>
         <td scope="row">{{i.Name}}</td>
         <td scope="row">{{i.mobile}}</td>
+        <td scope="row" >{{i.Work_Category}} </td>
         <td><img src="{{i.profilepicture.url}}" alt="hi" width="250" height="250"></td>
         <td scope="row">
-            <form action="{% url 'delete_worker' i.id %}" method="POST" class="d-inline-block">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-danger" value="delete"/>
-            </form>
+            {% if i.status == 0 %}
+            <a class="btn btn-primary" href="{% url 'accept_worker' i.id %}" role="button">Accept</a>
+            <a class="btn btn-primary" href="{% url 'reject_worker' i.id %}" role="button">Reject</a>
+            {%elif i.status == 1 %}
+            <a class="btn btn-primary"  role="button">Accepted</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'reject_worker' i.id %}" role="button">Rejected</a>
+            {% endif %}
         </td>
         <td scope="row">
             <a href="{% url 'update_worker' i.id %}">
                 <button type="button" class="btn btn-primary">Update</button>
             </a>
         </td>
+        <td scope="row">
+            <form action="{% url 'delete_worker' i.id %}" method="POST" class="d-inline-block">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="delete"/>
+            </form>
+        </td>
     </tr>
-
     {% endfor %}
     </tbody>
 </table>

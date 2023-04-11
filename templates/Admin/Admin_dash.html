@@ -129,9 +129,15 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href=" {% static 'tables.html' %} ">
+            <a class="nav-link" href=" {% url 'list_of_categories' %} ">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
+                <span>Categories</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href=" {% url 'skills_add' %} ">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Add new skill</span></a>
         </li>
 
         <!-- Divider -->

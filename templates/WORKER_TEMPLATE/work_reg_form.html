@@ -36,6 +36,17 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font: inherit;
   vertical-align: baseline;
 }
+#div_id_profilepicture{
+	padding-top:10px;
+	padding-bottom:10px}
+#div_id_Work_Category{
+padding-top:5px;
+padding-bottom:15px}
+
+#div_id_email,#div_id_Name,#div_id_Address,#div_id_username,#div_id_password1,#div_id_password2{
+padding-bottom:10px}
+
+
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
@@ -176,6 +187,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   width: 94.5%;
   display: block;
   border: none;
+  border-radius:15px;
   padding: 0.8em;
   border: solid 1px rgba(255, 255, 255, 0.37);
   -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -784,6 +796,7 @@ input.checkbox:checked:after {
     padding: 1em 0 0;
   }
 }
+
     </style>
 </head>
 <body>
@@ -795,25 +808,14 @@ input.checkbox:checked:after {
 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{worker_form | crispy}}
-                {{user_form|crispy}}
-                <button type="submit" class="btn btn-primary">Register</button>
+				<button type="submit" class="btn btn-primary btn-lg" style="margin-top: 3%;width: 100%;height: 60px;background-color: darkgrey;
+}">Register</button>
             </form>
 			</div>
 		</div>
 
-		<ul class="colorlib-bubbles">
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
+
 	</div>
-	<!-- //main -->
+
 </body>
 </html>

@@ -28,7 +28,8 @@ urlpatterns = [
     path('admin_feedback_reply', admin_view.admin_feedback_reply, name='admin_feedback_reply'),
     path('list_of_categories', admin_view.list_of_categories, name='list_of_categories'),
     path('skills_add', admin_view.skills_add, name='skills_add'),
-
+    path('accept_worker/<int:id>/', admin_view.accept_worker, name='accept_worker'),
+    path('reject_worker/<int:id>/', admin_view.reject_worker, name='reject_worker'),
 
     #user
     path('customer_feedback', customer_view.customer_feedback, name='customer_feedback'),

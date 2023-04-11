@@ -6,40 +6,41 @@ from django.contrib import messages
 # from service.forms import LoginRegister, WorkerForm
 
 
-from service.forms import LoginRegister, WorkerForm, CustomerForm
-from service.models import Worker
+from service.forms import WorkerForm, CustomerForm
 
 
-# Create your views here.
+#
+#
+# # Create your views here.
 def start(request):
     return render(request, 'demo.html')
-
-
+#
+#
 # home page
 def Home(request):
     return render(request, 'car/Modified_files/index.html')
-
-
+#
+#
 # login
 def Login(request):
     return render(request, 'Admin/Admin_dash.html')
-
-
+#
+#
 # WORKER_LOGIN
 def Worker_Login(request):
     return render(request, 'WORKER_TEMPLATE/WORKER_DASH.html')
-
-
+#
+#
 # USER_LOGIN
 def User_Login1(request):
     return render(request, 'USER_TEMPLATE/USER_DASH.html')
-
-
+#
+#
 # dashboard
 def dash(request):
     return render(request, 'car/dashboard/Modified_files/index.html')
-
-
+#
+#
 # login setup
 def login_view(request):
     if request.method == 'POST':
@@ -48,7 +49,6 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            print(user)
             if user.is_staff:
                 return redirect('Login')
             elif user.is_worker:
@@ -58,54 +58,44 @@ def login_view(request):
         else:
             messages.info(request, 'Invalid Credentials')
     return render(request, 'car/Modified_files/login.html')
-
-
-
+#
+#
+#
 def worker_register(request):
-    user_form = LoginRegister()
     worker_form = WorkerForm()
     if request.method == 'POST':
-        user_form = LoginRegister(request.POST, )
         worker_form = WorkerForm(request.POST, request.FILES)
-        if user_form.is_valid() and worker_form.is_valid():
-            u = user_form.save(commit=False)
-            u.is_worker = True
-            u.save()
-            worker = worker_form.save(commit=False)
-            worker.user = u
-            worker.save()
+        if worker_form.is_valid():
+            user = worker_form.save(commit=False)
+            user.is_worker = True
+            user.save()
             messages.info(request, 'Worker Registration Successful')
             return redirect('login_view')
-    return render(request, 'WORKER_TEMPLATE/work_reg_form.html', {'user_form': user_form, 'worker_form': worker_form})
-
-
+    return render(request, 'WORKER_TEMPLATE/work_reg_form.html', {'worker_form': worker_form})
+#
+#
 def customer_register(request):
-    user_form = LoginRegister()
     customer_form = CustomerForm()
     if request.method == 'POST':
-        user_form = LoginRegister(request.POST, )
         customer_form = CustomerForm(request.POST, request.FILES)
-        if user_form.is_valid() and customer_form.is_valid():
-            u = user_form.save(commit=False)
+        if customer_form.is_valid():
+            u = customer_form.save(commit=False)
             u.is_user = True
             u.save()
-            customer = customer_form.save(commit=False)
-            customer.user = u
-            customer.save()
             messages.info(request, 'Customer Registration Successful')
             return redirect('login_view')
-    return render(request, 'USER_TEMPLATE/customer_reg.html', {'user_form': user_form, 'customer_form': customer_form})
-
-
-# view workers
+    return render(request, 'USER_TEMPLATE/customer_reg.html', {'customer_form': customer_form})
+#
+#
+# # view workers
 def work_view(request):
-    data = Worker.objects.all()
+    data = Login().objects.filter(is_worker=True)
     return render(request, 'WORKER_TEMPLATE/worker_view.html', {"data": data})
-
-
+#
+#
 def signup(request):
     return render(request, 'signup_common.html')
-
+#
 def logout_view(request):
     logout(request)
     return redirect('login_view')

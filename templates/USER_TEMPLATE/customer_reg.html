@@ -795,7 +795,6 @@ input.checkbox:checked:after {
 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{customer_form|crispy}}
-                {{user_form | crispy}}
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
 			</div>
