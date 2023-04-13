@@ -1,0 +1,34 @@
+{% extends "Admin/Admin_dash.html" %}
+{% load static %}
+{%load crispy_forms_tags %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Starting time</th>
+      <th scope="col">Ending time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        {% for i in a %}
+      <th scope="row">{{i.worker}}</th>
+      <td>{{i.date}}</td>
+      <td>{{i.start_time}}</td>
+      <td>{{i.end_time}}</td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+</body>
+</html>

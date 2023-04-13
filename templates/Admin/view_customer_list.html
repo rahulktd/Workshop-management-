@@ -21,9 +21,15 @@
     <tbody>
     {% for i in data %}
     <tr>
-        <td scope="row">{{i.Name}}</td>
+        <td scope="row">{{i.name}}</td>
         <td scope="row">{{i.mobile}}</td>
-        <td><img src="{{i.profilepicture}}" alt="hi" width="250" height="250"></td>
+        <td>
+            {% if i.profilepicture %}
+            <img src="{{ i.profilepicture.url }}" alt="hi" width="250" height="250">
+            {% else %}
+          No profile picture available.
+        {% endif %}
+        </td>
         <td scope="row">
             <form action="{% url 'delete_customer' i.id %}" method="POST" class="d-inline-block">
 {% csrf_token %}

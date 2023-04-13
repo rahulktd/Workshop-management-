@@ -1,0 +1,21 @@
+{% extends "Admin/Admin_dash.html" %}
+{% load static %}
+{%load crispy_forms_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block content %}
+  <h1>Schedule Work</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}
+
+</body>
+</html>

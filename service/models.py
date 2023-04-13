@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
 class WorkerCategory(models.Model):
     Title = models.CharField(max_length=20)
     def __str__(self):
@@ -16,6 +15,18 @@ class Login(AbstractUser):
     profilepicture = models.FileField(upload_to='documents/',null=True)
     Work_Category = models.ForeignKey(WorkerCategory, on_delete=models.CASCADE,null=True)
     status = models.IntegerField(default=0,null=True)
+
+class Feedback(models.Model):
+    user = models.ForeignKey(Login,on_delete=models.DO_NOTHING)
+    date = models.DateField(auto_now=True)
+    message = models.CharField(max_length=150)
+    reply = models.CharField(max_length=150, null=True, blank=True)
+
+class WorkSchedule(models.Model):
+    worker = models.ForeignKey(Login,on_delete=models.CASCADE)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
 # class Customer(models.Model):
 #     user = models.ForeignKey(Login,on_delete=models.CASCADE)
@@ -37,10 +48,6 @@ class Login(AbstractUser):
 #     Work_Category = models.ForeignKey(WorkerCategory,on_delete=models.CASCADE)
 #     status = models.IntegerField(default=0)
 
-class Feedback(models.Model):
-    user = models.ForeignKey(Login,on_delete=models.DO_NOTHING)
-    date = models.DateField(auto_now=True)
-    message = models.CharField(max_length=150)
-    reply = models.CharField(max_length=150, null=True, blank=True)
+
 
 

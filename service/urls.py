@@ -1,5 +1,5 @@
 from django.urls import path
-from service import views, admin_view, customer_view
+from service import views, admin_view, customer_view, worker_view
 
 urlpatterns = [
     path('start',views.start,name='start'),
@@ -14,6 +14,8 @@ urlpatterns = [
     path('work_view',views.work_view,name='work_view'),
     path('signup',views.signup,name='signup'),
     path('logout_view',views.logout_view,name='logout_view'),
+    path('work_schedule',views.work_schedule,name='work_schedule'),
+    path('view_work_schedule',views.view_work_schedule,name='view_work_schedule'),
 
 
 #admin
@@ -36,6 +38,7 @@ urlpatterns = [
     # path('feedback_view', customer_view.customer_feedback_view, name='feedback_view'),
     path('customer_feedback_view', customer_view.customer_feedback_view, name='customer_feedback_view'),
 
-
+    #worker
+    path('view_work_times', worker_view.view_work_times, name='view_work_times'),
 
 ]

@@ -1,12 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
-# from django.core.checks import messages
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-# from service.forms import LoginRegister, WorkerForm
-
-
-from service.forms import WorkerForm, CustomerForm
+from service.forms import WorkerForm, CustomerForm, WorkScheduleForm
+from service.models import WorkSchedule
 
 
 #
@@ -24,23 +21,19 @@ def Home(request):
 # login
 def Login(request):
     return render(request, 'Admin/Admin_dash.html')
-#
-#
+
 # WORKER_LOGIN
 def Worker_Login(request):
     return render(request, 'WORKER_TEMPLATE/WORKER_DASH.html')
-#
-#
+
 # USER_LOGIN
 def User_Login1(request):
     return render(request, 'USER_TEMPLATE/USER_DASH.html')
-#
-#
+
 # dashboard
 def dash(request):
     return render(request, 'car/dashboard/Modified_files/index.html')
-#
-#
+
 # login setup
 def login_view(request):
     if request.method == 'POST':
@@ -58,9 +51,8 @@ def login_view(request):
         else:
             messages.info(request, 'Invalid Credentials')
     return render(request, 'car/Modified_files/login.html')
-#
-#
-#
+
+#registration form of worker
 def worker_register(request):
     worker_form = WorkerForm()
     if request.method == 'POST':
@@ -72,8 +64,8 @@ def worker_register(request):
             messages.info(request, 'Worker Registration Successful')
             return redirect('login_view')
     return render(request, 'WORKER_TEMPLATE/work_reg_form.html', {'worker_form': worker_form})
-#
-#
+
+#registration form of customer
 def customer_register(request):
     customer_form = CustomerForm()
     if request.method == 'POST':
@@ -85,17 +77,30 @@ def customer_register(request):
             messages.info(request, 'Customer Registration Successful')
             return redirect('login_view')
     return render(request, 'USER_TEMPLATE/customer_reg.html', {'customer_form': customer_form})
-#
-#
+
 # # view workers
 def work_view(request):
-    data = Login().objects.filter(is_worker=True)
+    data = Login.objects.filter(is_worker=True)
     return render(request, 'WORKER_TEMPLATE/worker_view.html', {"data": data})
-#
-#
+
+
 def signup(request):
     return render(request, 'signup_common.html')
 #
 def logout_view(request):
     logout(request)
     return redirect('login_view')
+
+def work_schedule(request):
+    if request.method == 'POST':
+        form = WorkScheduleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('view_work_schedule')
+    else:
+        form = WorkScheduleForm
+    return render(request,'Admin/Work_scheduling.html',{'form':form})
+
+def view_work_schedule(request):
+    a = WorkSchedule.objects.all()
+    return render(request,'Admin/Scheduled_works.html',{'a':a})

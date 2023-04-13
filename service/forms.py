@@ -1,9 +1,15 @@
 from django.contrib.auth.forms import UserCreationForm
 # from django.forms import forms
-from service.models import Login, Feedback, WorkerCategory
+from service.models import Login, Feedback, WorkerCategory, WorkSchedule
 from django import forms
 #
 #
+
+class Dateinput(forms.DateInput):
+    input_type = 'date'
+
+class Timeinput(forms.TimeInput):
+    input_type = 'time'
 class CustomerForm(UserCreationForm):
     class Meta:
         model = Login
@@ -34,3 +40,11 @@ class SkillForm(forms.ModelForm):
     class Meta:
         model = WorkerCategory
         fields = ('Title',)
+
+class WorkScheduleForm(forms.ModelForm):
+    date = forms.DateField(widget=Dateinput)
+    start_time = forms.TimeField(widget=Timeinput)
+    end_time = forms.TimeField(widget=Timeinput)
+    class Meta:
+        model = WorkSchedule
+        fields = ('worker','date','start_time','end_time')

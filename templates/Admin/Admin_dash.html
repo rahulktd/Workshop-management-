@@ -44,7 +44,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href=" {% url "admin_login" %} ">
+            <a class="nav-link" href="{% url "admin_login" %}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Admin Dashboard</span></a>
         </li>
@@ -68,7 +68,11 @@
                 <div class="bg-white py-2 collapse-inner rounded">
 
                     <a class="collapse-item" href=" {% url "worker_view" %}">View list</a>
+                     <a class="collapse-item" href=" {% url "work_schedule" %}">Schedule New Works</a>
+                    <a class="collapse-item" href=" {% url "view_work_schedule" %}">Scheduled Works</a>
+
                 </div>
+
             </div>
         </li>
 
@@ -139,6 +143,7 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span>Add new skill</span></a>
         </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

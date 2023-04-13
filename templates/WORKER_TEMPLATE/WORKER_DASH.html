@@ -29,7 +29,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-warning sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
 <!--            <a class="sidebar-brand d-flex align-items-center justify-content-center" href=" {% static 'index.html' %} ">-->
@@ -44,9 +44,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href=" {% url "admin_login" %} ">
+                <a class="nav-link" href=" {% url "Worker_Login" %} ">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Admin Dashboard</span></a>
+                    <span>Worker Dashboard</span></a>
             </li>
 
             <!-- Divider -->
@@ -62,12 +62,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Workers</span>
+                    <span>Works</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href=" {% url "worker_view" %}">View list</a>
+                        <a class="collapse-item" href=" {% url "view_work_times" %}">My Schedule</a>
                     </div>
                 </div>
             </li>
