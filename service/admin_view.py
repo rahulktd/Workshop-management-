@@ -1,9 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from service.forms import WorkerForm, SkillForm
-from service.models import Login, Feedback, WorkerCategory
-
-
+from service.forms import WorkerForm, SkillForm, ScheduleForm
+from service.models import Login, Feedback, WorkerCategory, Schedule
 
 
 def admin_login(request):
@@ -80,3 +78,20 @@ def reject_worker(request,id):
     data.save()
     return redirect("worker_view")
 
+# def work_schedule(request):
+#     if request.method == 'POST':
+#         form = WorkScheduleForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('view_work_schedule')
+#     else:
+#         form = ScheduleForm
+#     return render(request,'Admin/Work_scheduling.html',{'form':form})
+
+def view_work_admin(request):
+    a = Schedule.objects.all()
+    return render(request,'Admin/Scheduled_works.html',{'a':a})
+
+# def view_work_admin(request):
+#     scheduled_works = Schedule.objects.filter(worker=request.user)
+#     return render(request, 'Admin/Scheduled_works.html', {'scheduled_works': scheduled_works} )

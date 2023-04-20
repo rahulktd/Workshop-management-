@@ -2,8 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from service.forms import WorkerForm, CustomerForm, WorkScheduleForm
-from service.models import WorkSchedule
+from service.forms import WorkerForm, CustomerForm
+
 
 
 #
@@ -91,16 +91,4 @@ def logout_view(request):
     logout(request)
     return redirect('login_view')
 
-def work_schedule(request):
-    if request.method == 'POST':
-        form = WorkScheduleForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('view_work_schedule')
-    else:
-        form = WorkScheduleForm
-    return render(request,'Admin/Work_scheduling.html',{'form':form})
 
-def view_work_schedule(request):
-    a = WorkSchedule.objects.all()
-    return render(request,'Admin/Scheduled_works.html',{'a':a})

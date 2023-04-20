@@ -12,6 +12,7 @@
     <thead>
     <tr>
         <th scope="col">Name</th>
+        <th scope="col">Age</th>
         <th scope="col">Phone</th>
         <th scope="col">Work_Category</th>
         <th scope="col">Profile Picture</th>
@@ -24,6 +25,7 @@
     {% for i in data %}
     <tr>
         <td scope="row">{{i.name}}</td>
+        <td scope="row">{{i.age}}</td>
         <td scope="row">{{i.mobile}}</td>
         <td scope="row" >{{i.Work_Category}} </td>
         <td><img src="{{i.profilepicture.url}}" alt="hi" width="50" height="50"></td>

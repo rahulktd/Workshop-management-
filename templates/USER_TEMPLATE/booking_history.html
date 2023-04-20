@@ -1,0 +1,43 @@
+{% extends "USER_TEMPLATE/USER_DASH.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<h2>Bookings</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Starting time</th>
+      <th scope="col">Ending time</th>
+      <th scope="col">Appointment status</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for appointments in appointments %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{appointments.schedule.worker}}</td>
+      <td>{{appointments.schedule.date}}</td>
+      <td>{{appointments.schedule.start_time}}</td>
+      <td>{{appointments.schedule.end_time}}</td>
+      <td>
+            {% if appointments.status == 0 %}
+                 <button type="button" class="btn btn-warning">Pending</button>
+            {% elif appointments.status == 1 %}
+                 <button type="button" class="btn btn-success">Confirmed</button>
+            {% else %}
+                  <button type="button" class="btn btn-danger">Rejected</button>
+            {% endif %}
+        </td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

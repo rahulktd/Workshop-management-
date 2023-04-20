@@ -9,13 +9,21 @@
 <body>
 
 {% block content %}
+<div class="card mb-3">
+
+  <div class="card-body">
+
+
   <h1>Schedule Work</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit</button>
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
   </form>
+        </div>
+
 {% endblock %}
+
 
 </body>
 </html>

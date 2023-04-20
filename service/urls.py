@@ -14,8 +14,7 @@ urlpatterns = [
     path('work_view',views.work_view,name='work_view'),
     path('signup',views.signup,name='signup'),
     path('logout_view',views.logout_view,name='logout_view'),
-    path('work_schedule',views.work_schedule,name='work_schedule'),
-    path('view_work_schedule',views.view_work_schedule,name='view_work_schedule'),
+
 
 
 #admin
@@ -32,13 +31,27 @@ urlpatterns = [
     path('skills_add', admin_view.skills_add, name='skills_add'),
     path('accept_worker/<int:id>/', admin_view.accept_worker, name='accept_worker'),
     path('reject_worker/<int:id>/', admin_view.reject_worker, name='reject_worker'),
+    # path('work_schedule',admin_view.work_schedule,name='work_schedule'),
+    # path('view_work_schedule',admin_view.view_work_schedule,name='view_work_schedule'),
+    path('view_work_admin',admin_view.view_work_admin,name='view_work_admin'),
 
     #user
     path('customer_feedback', customer_view.customer_feedback, name='customer_feedback'),
     # path('feedback_view', customer_view.customer_feedback_view, name='feedback_view'),
     path('customer_feedback_view', customer_view.customer_feedback_view, name='customer_feedback_view'),
+    path('book_appointment/<int:id>/', customer_view.book_appointment, name='book_appointment'),
+    path('booking', customer_view.booking, name='booking'),
+    path('customer_bookings_view', customer_view.customer_bookings_view, name='customer_bookings_view'),
+
 
     #worker
-    path('view_work_times', worker_view.view_work_times, name='view_work_times'),
+    # path('view_work_times', worker_view.view_work_times, name='view_work_times'),
+    path('schedule', worker_view.schedule, name='schedule'),
+    path('view_schedules_worker', worker_view.view_schedules_worker, name='view_schedules_worker'),
+    path('delete_schedule/<int:id>/',worker_view.delete_schedule,name='delete_schedule'),
+    path('update_schedule/<int:id>/',worker_view.update_schedule,name='update_schedule'),
+    path('booked_app',worker_view.booked_app,name='booked_app'),
+    path('approve_booking/<int:id>/', worker_view.approve_booking, name='approve_booking'),
+    path('reject_booking/<int:id>/', worker_view.reject_booking, name='reject_booking'),
 
 ]

@@ -1,4 +1,4 @@
-{% extends "WORKER_TEMPLATE/WORKER_DASH.html" %}
+{% extends "USER_TEMPLATE/USER_DASH.html" %}
 {% load static %}
 {%load crispy_forms_tags %}
 
@@ -15,20 +15,27 @@
       <th scope="col">Date</th>
       <th scope="col">Starting time</th>
       <th scope="col">Ending time</th>
+      <th scope="col">Book an appoiment</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-        {% for i in scheduled_works %}
+        {% for i in data %}
       <th scope="row">{{i.worker}}</th>
       <td>{{i.date}}</td>
       <td>{{i.start_time}}</td>
       <td>{{i.end_time}}</td>
+      <td scope="row">
+            <a href="{% url 'book_appointment' i.id %}">
+                <button type="submit" class="btn btn-primary">Book</button>
+            </a>
+        </td>
     </tr>
 
     {% endfor %}
   </tbody>
 </table>
+
 {% endblock %}
 </body>
 </html>

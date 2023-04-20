@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from service.forms import FeedbackForm
-from service.models import Feedback
+from service.forms import FeedbackForm, ScheduleForm, AppointmentForm
+from service.models import Feedback, Schedule, Login, Appointment
 
 
 def customer_feedback(request):
@@ -34,5 +34,29 @@ def reply_view(request):
         return redirect('reply_view', id=id)
     else:
         form = FeedbackForm()
-    return render(request, 'USER_TEMPLATE/customer_feedback_view.html', {'feedback': feedback,})
+    return render(request, 'USER_TEMPLATE/customer_feedback_view.html', {'feedback': feedback})
+
+def book_appointment(request,id):
+    schedule = Schedule.objects.get(id=id)
+    custo = Login.objects.get(name=request.user)
+    app = Appointment.objects.filter(worker=custo,schedule=schedule)
+    if app.exists():
+        messages.info(request,"You have already requested ")
+        return redirect('booking')
+    else:
+        if request.method == 'POST':
+                obj = Appointment()
+                obj.worker = custo
+                obj.schedule = schedule
+                obj.save()
+                messages.info(request,'Appointment Booked ')
+                return redirect('customer_bookings_view')
+    return render(request,'USER_TEMPLATE/book_app.html',{'schedule':schedule})
+def booking(request):
+    data = Schedule.objects.all()
+    return render(request,'USER_TEMPLATE/user_worker_schedule.html',{'data':data})
+
+def customer_bookings_view(request):
+    appointments = Appointment.objects.all()
+    return render(request, 'USER_TEMPLATE/booking_history.html', {'appointments': appointments})
 

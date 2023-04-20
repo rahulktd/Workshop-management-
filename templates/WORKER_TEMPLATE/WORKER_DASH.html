@@ -67,8 +67,10 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href=" {% url "view_work_times" %}">My Schedule</a>
+                        <a class="collapse-item" href=" {% url "schedule" %}">Make Schedule</a>
+                        <a class="collapse-item" href=" {% url "view_schedules_worker" %}">My Schedule</a>
                     </div>
+
                 </div>
             </li>
 
@@ -77,13 +79,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Customers</span>
+                    <span>Customer bookings</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 <!--                        <h6 class="collapse-header">Custom Utilities:</h6>-->
-                        <a class="collapse-item" href=" {% url "customer_view" %} ">View List</a>
+                        <a class="collapse-item" href=" {% url "booked_app" %} ">View bookings</a>
 <!--                        <a class="collapse-item" href=" {% static 'utilities-border.html' %} ">Borders</a>-->
 <!--                        <a class="collapse-item" href=" {% static 'utilities-animation.html' %} ">Animations</a>-->
 <!--                        <a class="collapse-item" href=" {% static 'utilities-other.html' %} ">Other</a>-->
@@ -363,7 +365,7 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                {%block content%}
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -373,7 +375,8 @@
 <!--                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i-->
 <!--                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
 <!--                    </div>-->
-
+{%block content%}
+                {%endblock%}
                     <!-- Content Row -->
                     <div class="row">
 
@@ -697,7 +700,7 @@
 
             </div>
             <!-- End of Main Content -->
-{%endblock%}
+
 
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">

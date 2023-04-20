@@ -1,0 +1,46 @@
+{% extends "WORKER_TEMPLATE/WORKER_DASH.html" %}
+{% load static %}
+{%load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<table class="table table-hover table-bordered border-primary">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Start time</th>
+        <th scope="col">End time</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in app %}
+    <tr>
+        <td scope="row">{{i.worker}}</td>
+        <td scope="row">{{i.schedule.date}}</td>
+        <td scope="row">{{i.schedule.start_time}}</td>
+        <td scope="row">{{i.schedule.end_time}}</td>
+
+        <td scope="row">
+            {% if i.status == 0 %}
+            <a class="btn btn-primary" href="{% url 'approve_booking' i.id %}" role="button">Accept</a>
+            <a class="btn btn-primary" href="{% url 'reject_booking' i.id %}" role="button">Reject</a>
+            {%elif i.status == 1 %}
+            <a class="btn btn-primary"  role="button">Accepted</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'reject_booking' i.id %}" role="button">Rejected</a>
+            {% endif %}
+        </td>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endblock %}
+        </body>
+        </html>

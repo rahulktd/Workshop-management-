@@ -122,9 +122,14 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-                <a class="nav-link" href=" {% static 'charts.html' %} ">
-                    <i class="fas fa-fw fa-rupee-sign"></i>
-                    <span>Bill</span></a>
+                <a class="nav-link" href=" {% url 'booking' %} ">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Book an appointment</span></a>
+            </li>
+        <li class="nav-item">
+                <a class="nav-link" href=" {% url 'customer_bookings_view' %} ">
+                    <i class="fas fa-fw fa-info-circle"></i>
+                    <span>Booking status</span></a>
             </li>
 
         <!-- Nav Item - Tables -->
@@ -372,7 +377,7 @@
             </nav>
             <!-- End of Topbar -->
 
-            {%block content%}
+
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
@@ -383,7 +388,8 @@
                 <!--                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
                 <!--                    </div>-->
 
-                <!-- Content Row -->
+                <!-- Content Row -->{%block content%}
+                {%endblock%}
                 <div class="row">
 
                     <!--                        &lt;!&ndash; Earnings (Monthly) Card Example &ndash;&gt;-->
@@ -706,7 +712,7 @@
 
         </div>
         <!-- End of Main Content -->
-        {%endblock%}
+
 
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">

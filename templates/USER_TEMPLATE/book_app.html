@@ -1,0 +1,25 @@
+{% extends "USER_TEMPLATE/USER_DASH.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="container">
+    <h2>Book an Appointment</h2>
+    <form method="post" >
+    {% csrf_token %}
+      <div class="form-group">
+      <label for="worker">Worker:{{schedule.worker}}</label>
+    </div>
+    <div class="form-group">
+      <label for="date">{{schedule.date}}</label>
+    </div>
+    <div class="form-group">
+      <label for="time">Time:{{schedule.start_time}}-{{schedule.end_time}}</label>
+    </div>
+    <input type="hidden" name="worker" value="{{ schedule.worker.id }}">
+    <button type="submit" class="btn btn-primary">Book</button>
+</form>
+
+</div>
+{% endblock %}
+
