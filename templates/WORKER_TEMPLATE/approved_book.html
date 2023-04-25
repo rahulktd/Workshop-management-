@@ -1,0 +1,33 @@
+{% extends "Admin/Admin_dash.html" %}
+
+{% block content %}
+  <h2>Accepted Appointments</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Worker</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Customer</th>
+          <th scope="col">Bill</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for app in accepted %}
+      <tr>
+        <td>{{ app.schedule.worker }}</td>
+        <td>{{ app.schedule.date }}</td>
+        <td>{{ app.schedule.start_time }}</td>
+        <td>{{ app.schedule.end_time }}</td>
+        <td>{{ app.worker }}</td>
+          <td scope="row" >
+            <a class="btn btn-warning" href="{% url 'create_invoice' i.id %}">Create bill</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}

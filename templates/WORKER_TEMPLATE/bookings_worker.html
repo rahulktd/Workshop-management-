@@ -13,20 +13,23 @@
     <thead>
     <tr>
         <th scope="col">Name</th>
+        <th scope="col">Name</th>
         <th scope="col">Date</th>
         <th scope="col">Start time</th>
         <th scope="col">End time</th>
         <th scope="col">Action</th>
+        <th scope="col">Bill</th>
+
     </tr>
     </thead>
     <tbody>
     {% for i in app %}
     <tr>
         <td scope="row">{{i.worker}}</td>
+        <td scope="row">{{i.schedule.worker}}</td>
         <td scope="row">{{i.schedule.date}}</td>
         <td scope="row">{{i.schedule.start_time}}</td>
         <td scope="row">{{i.schedule.end_time}}</td>
-
         <td scope="row">
             {% if i.status == 0 %}
             <a class="btn btn-primary" href="{% url 'approve_booking' i.id %}" role="button">Accept</a>
@@ -36,6 +39,9 @@
             {% else %}
             <a class="btn btn-primary" href="{% url 'reject_booking' i.id %}" role="button">Rejected</a>
             {% endif %}
+        </td>
+        <td scope="row" >
+            <a class="btn btn-warning" href="{% url 'create_invoice' i.id %}">Create bill</a>
         </td>
 
             {% endfor %}

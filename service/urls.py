@@ -34,6 +34,12 @@ urlpatterns = [
     # path('work_schedule',admin_view.work_schedule,name='work_schedule'),
     # path('view_work_schedule',admin_view.view_work_schedule,name='view_work_schedule'),
     path('view_work_admin',admin_view.view_work_admin,name='view_work_admin'),
+    path('appointments_admin_view',admin_view.appointments_admin_view,name='appointments_admin_view'),
+    # path('approve_invoice/<int:id>/',admin_view.approve_invoice,name='approve_invoice'),
+    path('pending_invoice_requests',admin_view.pending_invoice_requests,name='pending_invoice_requests'),
+    path('approved_invoice_requests',admin_view.approved_invoice_requests,name='approved_invoice_requests'),
+    path('approve_invoice/<int:id>/',admin_view.approve_invoice,name='approve_invoice'),
+    path('reject_invoice/<int:id>/',admin_view.reject_invoice,name='reject_invoice'),
 
     #user
     path('customer_feedback', customer_view.customer_feedback, name='customer_feedback'),
@@ -42,6 +48,9 @@ urlpatterns = [
     path('book_appointment/<int:id>/', customer_view.book_appointment, name='book_appointment'),
     path('booking', customer_view.booking, name='booking'),
     path('customer_bookings_view', customer_view.customer_bookings_view, name='customer_bookings_view'),
+    path('invoices', customer_view.invoices, name='invoices'),
+    path('pay_now/<int:id>/', customer_view.pay_now, name='pay_now'),
+    path('pay_opt', customer_view.pay_opt, name='pay_opt'),
 
 
     #worker
@@ -53,5 +62,9 @@ urlpatterns = [
     path('booked_app',worker_view.booked_app,name='booked_app'),
     path('approve_booking/<int:id>/', worker_view.approve_booking, name='approve_booking'),
     path('reject_booking/<int:id>/', worker_view.reject_booking, name='reject_booking'),
+    path('create_invoice/<int:id>/', worker_view.create_invoice, name='create_invoice'),
+    path('list_invoice', worker_view.list_invoice, name='list_invoice'),
+    path('requests_appproved', worker_view.requests_appproved, name='requests_appproved'),
+    # path('approved_book', worker_view.approved_book, name='approved_book'),
 
 ]

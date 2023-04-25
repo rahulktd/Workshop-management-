@@ -1,0 +1,33 @@
+{% extends "Admin/Admin_dash.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Pending Invoice Requests</h1>
+<table class="table">
+    <tr>
+        <th>Worker</th>
+        <th>Customer</th>
+        <th>Total Amount</th>
+        <th>Actions</th>
+    </tr>
+    {% for i in pending_bills %}
+        <tr>
+            <td>{{ i.worker }}</td>
+            <td>{{ i.customer }}</td>
+            <td>{{ i.amount }}</td>
+            <td scope="row">
+            {% if i.status == 0 %}
+            <a class="btn btn-primary" href="{% url 'approve_invoice' i.id %}" role="button">Accept</a>
+            <a class="btn btn-primary" href="{% url 'reject_invoice' i.id %}" role="button">Reject</a>
+            {%elif i.status == 1 %}
+            <a class="btn btn-primary"  role="button">Accepted</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'reject_invoice' i.id %}" role="button">Rejected</a>
+            {% endif %}
+             </td>
+
+        </tr>
+
+    {% endfor %}
+</table>
+{% endblock %}

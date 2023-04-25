@@ -44,10 +44,27 @@ class Appointment(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
     status = models.IntegerField(default=0,null=True)
 
+    def __str__(self):
+        return f" {self.schedule.date}"
 
+class Bill(models.Model):
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    worker = models.ForeignKey(Login, on_delete=models.CASCADE, related_name='bill')
+    customer = models.ForeignKey(Login, on_delete=models.CASCADE, related_name='pay')
+    amount = models.DecimalField(max_digits=8, decimal_places=3,null=True)
+    status = models.IntegerField(default=0, null=True)
+    invoice_date = models.DateField(null=True)
 
+    def __str__(self):
+        return f"{self.appointment} - {self.invoice_date}"
 
-
+class Payment(models.Model):
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Login,on_delete=models.CASCADE)
+    pay_date = models.DateField(auto_now=True)
+    card_number = models.IntegerField()
+    cvv = models.IntegerField()
+    exp = models.DateField()
 
 
 

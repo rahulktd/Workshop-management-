@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from service.forms import WorkerForm, SkillForm, ScheduleForm
-from service.models import Login, Feedback, WorkerCategory, Schedule
+from service.forms import WorkerForm, SkillForm, ScheduleForm, BillApprovalForm
+from service.models import Login, Feedback, WorkerCategory, Schedule, Appointment, Bill
 
 
 def admin_login(request):
@@ -56,7 +56,6 @@ def list_of_categories(request):
         return render(request, 'Admin/list_of_skills.html', {'categ': categ})
 
 def skills_add(request):
-
     if request.method == 'POST':
         form = SkillForm(request.POST)
         if form.is_valid():
@@ -78,20 +77,43 @@ def reject_worker(request,id):
     data.save()
     return redirect("worker_view")
 
-# def work_schedule(request):
-#     if request.method == 'POST':
-#         form = WorkScheduleForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('view_work_schedule')
-#     else:
-#         form = ScheduleForm
-#     return render(request,'Admin/Work_scheduling.html',{'form':form})
-
 def view_work_admin(request):
     a = Schedule.objects.all()
     return render(request,'Admin/Scheduled_works.html',{'a':a})
 
-# def view_work_admin(request):
-#     scheduled_works = Schedule.objects.filter(worker=request.user)
-#     return render(request, 'Admin/Scheduled_works.html', {'scheduled_works': scheduled_works} )
+def appointments_admin_view(request):
+    accepted_appointments = Appointment.objects.filter(status=1)
+    rejected_appointments = Appointment.objects.filter(status=2)
+    return render(request, 'Admin/works_acc_rej.html', {'accepted_appointments': accepted_appointments, 'rejected_appointments': rejected_appointments})
+
+def pending_invoice_requests(request):
+    pending_bills = Bill.objects.filter(status=0)
+    return render(request, 'Admin/pending_invoice_requests.html', {'pending_bills': pending_bills})
+
+
+# def approve_invoice(request,id):
+#     bill = Bill.objects.get(id=id)
+#     if request.method == 'POST':
+#         form = BillApprovalForm(request.POST, instance=bill)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('approved_invoice_requests')
+#     else:
+#         form = BillApprovalForm()
+#     return render(request, 'Admin/invoice_approval.html',{'form':form, 'bill':bill})
+
+def approved_invoice_requests(request):
+    approved_bills = Bill.objects.filter(status=1)
+    return render(request, 'Admin/approved_invoice_requests.html', {'approved_bills': approved_bills})
+
+def approve_invoice(request,id):
+    data = Bill.objects.get(id=id)
+    data.status=1
+    data.save()
+    return redirect("approved_invoice_requests")
+
+def reject_invoice(request,id):
+    data = Bill.objects.get(id=id)
+    data.status=2
+    data.save()
+    return redirect("pending_invoice_requests")

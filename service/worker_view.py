@@ -1,12 +1,7 @@
 from django.shortcuts import render, redirect
+from service.forms import ScheduleForm, BillForm
+from service.models import Schedule, Appointment, Bill
 
-from service.forms import ScheduleForm
-from service.models import Schedule, Appointment
-
-
-# def view_work_times(request):
-#     scheduled_works = WorkSchedule.objects.filter(worker=request.user)
-#     return render(request, 'WORKER_TEMPLATE/Scheduled_works_worker.html', {'scheduled_works': scheduled_works} )
 
 def schedule(request):
     if request.method == 'POST':
@@ -21,7 +16,6 @@ def schedule(request):
     return render(request, 'WORKER_TEMPLATE/schedule.html', {'form': form})
 
 def view_schedules_worker(request):
-    u = request.user
     data = Schedule.objects.filter(worker=request.user)
     return render(request, 'WORKER_TEMPLATE/Scheduled_works_worker.html', {'data': data})
 
@@ -41,7 +35,8 @@ def delete_schedule(request, id):
     return redirect("view_schedules_worker")
 
 def booked_app(request):
-    app = Appointment.objects.all()
+    data = Schedule.objects.filter(worker=request.user)
+    app = Appointment.objects.filter(schedule__in = data)
     return render(request,'WORKER_TEMPLATE/bookings_worker.html',{'app':app})
 
 def approve_booking(request,id):
@@ -55,4 +50,34 @@ def reject_booking(request,id):
     data.status=2
     data.save()
     return redirect("booked_app")
+
+# def approved_book(request):
+#     accepted = Appointment.objects.filter(status=1)
+#     return render(request, 'WORKER_TEMPLATE/approved_book.html', {'accepted':accepted})
+
+
+def create_invoice(request,id):
+    appointment = Appointment.objects.get(id=id)
+    worker = request.user
+    if request.method == 'POST':
+        form = BillForm(request.POST)
+        if form.is_valid():
+            bill = form.save(commit=False)
+            bill.appointment = appointment
+            bill.worker = worker
+            bill.customer = appointment.worker
+            bill.save()
+            return redirect('booked_app')
+    else:
+        form = BillForm()
+    return render(request,'WORKER_TEMPLATE/create_invoice.html',{'form':form,'appointment':appointment})
+
+def list_invoice(request):
+    app = Appointment.objects.all()
+    invoices = Bill.objects.all()
+    return render(request, 'WORKER_TEMPLATE/invoices_list.html',{'app':app,'invoices':invoices})
+
+def requests_appproved(request):
+    approved_bills = Bill.objects.filter(status=1)
+    return render(request, 'WORKER_TEMPLATE/approved_list.html', {'approved_bills': approved_bills})
 

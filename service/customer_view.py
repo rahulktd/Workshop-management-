@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from service.forms import FeedbackForm, ScheduleForm, AppointmentForm
-from service.models import Feedback, Schedule, Login, Appointment
+from service.forms import FeedbackForm, PaymentForm
+from service.models import Feedback, Schedule, Login, Appointment, Bill
 
 
 def customer_feedback(request):
@@ -57,6 +57,31 @@ def booking(request):
     return render(request,'USER_TEMPLATE/user_worker_schedule.html',{'data':data})
 
 def customer_bookings_view(request):
-    appointments = Appointment.objects.all()
+    appointments = Appointment.objects.filter(worker=request.user)
     return render(request, 'USER_TEMPLATE/booking_history.html', {'appointments': appointments})
+
+def invoices(request):
+    approved_bills = Bill.objects.filter(customer=request.user,status=1)
+    return render(request, 'USER_TEMPLATE/invoice.html', {'approved_bills': approved_bills})
+
+def pay_now(request,id):
+    bill = Bill.objects.get(id=id)
+    appointment = bill.appointment
+    form = PaymentForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            payment = form.save(commit=False)
+            payment.appointment = appointment
+            payment.bill = bill
+            payment.customer = request.user
+            payment.save()
+            messages.success(request, 'Payment has been successfully processed.')
+            return redirect('pay_opt')
+        else:
+            form = PaymentForm()
+    return render(request,'USER_TEMPLATE/payment.html',{'form':form,'bill':bill})
+
+def pay_opt(request):
+    return render(request,'USER_TEMPLATE/payment_successful.html')
+
 

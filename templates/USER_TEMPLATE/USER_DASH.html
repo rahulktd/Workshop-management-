@@ -66,12 +66,10 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-
-                    <a class="collapse-item" href=" {% url "worker_view" %}">View Orders</a>
+                    <a class="collapse-item" href=" {% url "invoices" %}">Bills</a>
                 </div>
             </div>
         </li>
-
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -83,7 +81,8 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <!--                        <h6 class="collapse-header">Custom Utilities:</h6>-->
-                    <a class="collapse-item" href=" {% url "customer_view" %} ">view</a>
+                                        <a class="collapse-item" href=" {% url "customer_bookings_view" %}">Bookings</a>
+
                     <!--                        <a class="collapse-item" href=" {% static 'utilities-border.html' %} ">Borders</a>-->
                     <!--                        <a class="collapse-item" href=" {% static 'utilities-animation.html' %} ">Animations</a>-->
                     <!--                        <a class="collapse-item" href=" {% static 'utilities-other.html' %} ">Other</a>-->
@@ -126,11 +125,7 @@
                     <i class="fas fa-fw fa-calendar"></i>
                     <span>Book an appointment</span></a>
             </li>
-        <li class="nav-item">
-                <a class="nav-link" href=" {% url 'customer_bookings_view' %} ">
-                    <i class="fas fa-fw fa-info-circle"></i>
-                    <span>Booking status</span></a>
-            </li>
+
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">

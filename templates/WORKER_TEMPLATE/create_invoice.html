@@ -1,0 +1,23 @@
+{% extends "WORKER_TEMPLATE/WORKER_DASH.html" %}
+{% load static %}
+{%load crispy_forms_tags %}
+
+{% block content %}
+  <h1>Create Bill</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" name="description" id="description" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="number" name="amount" id="amount" class="form-control" required>
+    </div>
+       <div class="form-group">
+    <label for="invoice_date">Invoice Date:</label>
+    <input type="date" name="invoice_date" id="invoice_date" class="form-control" required>
+  </div>
+    <button type="submit" class="btn btn-primary">Create Bill</button>
+  </form>
+{% endblock %}

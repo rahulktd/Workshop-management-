@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
-from service.models import Login, Feedback, WorkerCategory, Schedule, Appointment
+from service.models import Login, Feedback, WorkerCategory, Schedule, Appointment, Bill, Payment
 from django import forms
 
 class Dateinput(forms.DateInput):
@@ -42,3 +42,21 @@ class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = ('worker','schedule','status')
+
+
+class BillForm(forms.ModelForm):
+    class Meta:
+        model = Bill
+        fields = ('customer','amount')
+
+class BillApprovalForm(forms.ModelForm):
+    class Meta:
+        model = Bill
+        fields = ()
+
+
+class PaymentForm(forms.ModelForm):
+    exp= forms.DateField(widget=Dateinput)
+    class Meta:
+        model = Payment
+        fields = ('card_number', 'cvv', 'exp')

@@ -1,0 +1,52 @@
+{% extends "Admin/Admin_dash.html" %}
+
+{% block content %}
+  <h2>Accepted Appointments</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Worker</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Customer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for app in accepted_appointments %}
+      <tr>
+        <td>{{ app.schedule.worker }}</td>
+        <td>{{ app.schedule.date }}</td>
+        <td>{{ app.schedule.start_time }}</td>
+        <td>{{ app.schedule.end_time }}</td>
+        <td>{{ app.worker }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Rejected Appointments</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Worker</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Customer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for app in rejected_appointments %}
+      <tr>
+        <td>{{ app.schedule.worker }}</td>
+        <td>{{ app.schedule.date }}</td>
+        <td>{{ app.schedule.start_time }}</td>
+        <td>{{ app.schedule.end_time }}</td>
+        <td>{{ app.worker }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

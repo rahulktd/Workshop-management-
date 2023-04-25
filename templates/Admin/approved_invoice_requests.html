@@ -1,0 +1,21 @@
+{% extends "Admin/Admin_dash.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Approved Invoice Requests</h1>
+<table class="table">
+    <tr>
+        <th>Worker</th>
+        <th>Customer</th>
+        <th>Total Amount</th>
+    </tr>
+    {% for i in approved_bills %}
+        <tr>
+            <td>{{ i.worker }}</td>
+            <td>{{ i.customer }}</td>
+            <td>{{ i.amount }}</td>
+        </tr>
+
+    {% endfor %}
+</table>
+{% endblock %}

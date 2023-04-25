@@ -66,11 +66,11 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-
                     <a class="collapse-item" href=" {% url "worker_view" %}">View list</a>
 
                     <a class="collapse-item" href=" {% url "view_work_admin" %}">Scheduled Works</a>
 
+                    <a class="collapse-item" href=" {% url "appointments_admin_view" %}">Accepted&Rejected Works</a>
                 </div>
 
             </div>
@@ -88,6 +88,10 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <!--                        <h6 class="collapse-header">Custom Utilities:</h6>-->
                     <a class="collapse-item" href=" {% url "customer_view" %} ">View List</a>
+                    <a class="collapse-item" href=" {% url "approved_invoice_requests" %} ">Approved Invoices</a>
+                    <a class="collapse-item" href=" {% url "pending_invoice_requests" %} ">Invoice Requests</a>
+
+
                     <!--                        <a class="collapse-item" href=" {% static 'utilities-border.html' %} ">Borders</a>-->
                     <!--                        <a class="collapse-item" href=" {% static 'utilities-animation.html' %} ">Animations</a>-->
                     <!--                        <a class="collapse-item" href=" {% static 'utilities-other.html' %} ">Other</a>-->
@@ -395,9 +399,10 @@
                     </div>
                 </div>
             </div>
-            {%endblock%}
             <!-- Content Row -->
             <div class="row">
+                            {%endblock%}
+
 
                 <!--                        &lt;!&ndash; Earnings (Monthly) Card Example &ndash;&gt;-->
                 <!--                        <div class="col-xl-3 col-md-6 mb-4">-->

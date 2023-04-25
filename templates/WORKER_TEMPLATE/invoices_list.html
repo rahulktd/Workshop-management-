@@ -1,0 +1,40 @@
+{% extends "WORKER_TEMPLATE/WORKER_DASH.html" %}
+{% load static %}
+{% block content %}
+<h1>Invoices</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Appointment</th>
+      <th scope="col">Customer</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for invoice in invoices %}
+    <tr>
+      <th scope="row">{{ invoice.id }}</th>
+      <td>{{ invoice.appointment }}</td>
+      <td>{{ invoice.customer }}</td>
+      <td>{{ invoice.amount }}</td>
+      <td>
+            {% if invoice.status == 0 %}
+                 <button type="button" class="btn btn-warning">Pending</button>
+            {% elif invoice.status == 1 %}
+                 <button type="button" class="btn btn-success">Confirmed</button>
+            {% else %}
+                  <button type="button" class="btn btn-danger">Rejected</button>
+            {% endif %}
+        </td>
+    </tr>
+  {% empty %}
+    <tr>
+      <td colspan="5">No invoices found.</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+

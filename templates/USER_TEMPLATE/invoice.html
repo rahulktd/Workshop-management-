@@ -1,0 +1,42 @@
+{% extends "USER_TEMPLATE/USER_DASH.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+  <h2>Approved Invoices</h2>
+  {% if approved_bills %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Appointment</th>
+          <th>Worker</th>
+          <th>Amount</th>
+          <th>Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in approved_bills %}
+          <tr>
+            <td>{{ i.appointment }}</td>
+            <td>{{ i.worker }}</td>
+            <td>{{ i.amount }}</td>
+            <td scope="row" >
+            <a class="btn btn-warning" href="{% url 'pay_now' i.id %}">Pay online</a>
+            <a class="btn btn-warning" href="{% url 'pay_opt' %}">Pay by cash</a>
+        </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No approved invoices found.</p>
+  {% endif %}
+{% endblock %}
+</body>
+</html>
