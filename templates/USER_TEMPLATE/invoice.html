@@ -9,7 +9,10 @@
 </head>
 <body>
 {% block content %}
-  <h2>Approved Invoices</h2>
+<div class="card">
+  <div class="card-body">
+
+  <h2 class="card-title">Approved Invoices</h2>
   {% if approved_bills %}
     <table class="table">
       <thead>
@@ -28,15 +31,17 @@
             <td>{{ i.amount }}</td>
             <td scope="row" >
             <a class="btn btn-warning" href="{% url 'pay_now' i.id %}">Pay online</a>
-            <a class="btn btn-warning" href="{% url 'pay_opt' %}">Pay by cash</a>
+            <a class="btn btn-warning" href="{% url 'pay_success' i.id %}">Pay by cash</a>
         </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
-  {% else %}
-    <p>No approved invoices found.</p>
+
   {% endif %}
+
+  </div>
+</div>
 {% endblock %}
 </body>
 </html>

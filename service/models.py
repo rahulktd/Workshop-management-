@@ -59,12 +59,15 @@ class Bill(models.Model):
         return f"{self.appointment} - {self.invoice_date}"
 
 class Payment(models.Model):
+    bill = models.ForeignKey(Bill, on_delete=models.CASCADE, null=True)
     appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
     customer = models.ForeignKey(Login,on_delete=models.CASCADE)
+    amount_paid = models.DecimalField(max_digits=10,decimal_places=3, null=False)
     pay_date = models.DateField(auto_now=True)
     card_number = models.IntegerField()
     cvv = models.IntegerField()
     exp = models.DateField()
+    status = models.IntegerField(default=0, null=True)
 
 
 

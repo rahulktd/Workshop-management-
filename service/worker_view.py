@@ -56,21 +56,39 @@ def reject_booking(request,id):
 #     return render(request, 'WORKER_TEMPLATE/approved_book.html', {'accepted':accepted})
 
 
-def create_invoice(request,id):
+# def create_invoice(request,id):
+#     appointment = Appointment.objects.get(id=id)
+#     worker = appointment.worker
+#     if request.method == 'POST':
+#         form = BillForm(request.POST)
+#         if form.is_valid():
+#             bill = form.save(commit=False)
+#             bill.appointment = appointment
+#             bill.worker = worker
+#             bill.customer = appointment.worker
+#             bill.save()
+#             return redirect('booked_app')
+#     else:
+#         form = BillForm()
+#     return render(request,'WORKER_TEMPLATE/create_invoice.html',{'form':form,'appointment':appointment})
+
+def create_invoice(request, id):
     appointment = Appointment.objects.get(id=id)
     worker = request.user
     if request.method == 'POST':
-        form = BillForm(request.POST)
-        if form.is_valid():
-            bill = form.save(commit=False)
-            bill.appointment = appointment
-            bill.worker = worker
-            bill.customer = appointment.worker
-            bill.save()
-            return redirect('booked_app')
-    else:
-        form = BillForm()
-    return render(request,'WORKER_TEMPLATE/create_invoice.html',{'form':form,'appointment':appointment})
+        description = request.POST['description']
+        amount = request.POST['amount']
+        invoice_date = request.POST['invoice_date']
+        bill = Bill.objects.create(
+            appointment=appointment,
+            worker=worker,
+            customer=appointment.worker,
+            amount=amount,
+            invoice_date=invoice_date
+        )
+        bill.save()
+        return redirect('booked_app')
+    return render(request, 'WORKER_TEMPLATE/create_invoice.html', {'appointment': appointment})
 
 def list_invoice(request):
     app = Appointment.objects.all()

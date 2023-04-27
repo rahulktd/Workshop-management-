@@ -14,6 +14,7 @@ urlpatterns = [
     path('work_view',views.work_view,name='work_view'),
     path('signup',views.signup,name='signup'),
     path('logout_view',views.logout_view,name='logout_view'),
+    path('details',views.details,name='details'),
 
 
 
@@ -40,6 +41,7 @@ urlpatterns = [
     path('approved_invoice_requests',admin_view.approved_invoice_requests,name='approved_invoice_requests'),
     path('approve_invoice/<int:id>/',admin_view.approve_invoice,name='approve_invoice'),
     path('reject_invoice/<int:id>/',admin_view.reject_invoice,name='reject_invoice'),
+    path('payments_customer',admin_view.payments_customer,name='payments_customer'),
 
     #user
     path('customer_feedback', customer_view.customer_feedback, name='customer_feedback'),
@@ -51,6 +53,8 @@ urlpatterns = [
     path('invoices', customer_view.invoices, name='invoices'),
     path('pay_now/<int:id>/', customer_view.pay_now, name='pay_now'),
     path('pay_opt', customer_view.pay_opt, name='pay_opt'),
+    path('payed_or_not', customer_view.payed_or_not, name='payed_or_not'),
+    path('pay_success/<int:id>/', customer_view.pay_success, name='pay_success'),
 
 
     #worker

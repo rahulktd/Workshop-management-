@@ -3,25 +3,24 @@
 {%load crispy_forms_tags %}
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="card">
+  <div class="card-body">
+
+<h1 class="card-title">My work schedule</h1>
 <table class="table">
   <thead>
     <tr>
         {% for i in data %}
-      <th scope="row">{{i.worker}}</th>
+      <th >{{i.worker}}</th>
       <td>{{i.date}}</td>
       <td>{{i.start_time}}</td>
       <td>{{i.end_time}}</td>
-      <td scope="row">
+      <td>
             <a href="{% url 'update_schedule' i.id %}">
                 <button type="button" class="btn btn-primary">Update</button>
             </a>
         </td>
-        <td scope="row">
+        <td >
             <form action="{% url 'delete_schedule' i.id %}" method="POST" class="d-inline-block">
                 {% csrf_token %}
                 <input type="submit" class="btn btn-danger" value="delete"/>
@@ -32,6 +31,6 @@
     {% endfor %}
   </tbody>
 </table>
+</div>
+</div>
 {% endblock %}
-</body>
-</html>

@@ -91,4 +91,9 @@ def logout_view(request):
     logout(request)
     return redirect('login_view')
 
+def details(request):
+    data = Login.objects.all()
+    return render(request, 'Admin/Admin_dash.html',{'data':data})
+
+
 

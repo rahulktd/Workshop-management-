@@ -1,4 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
 from service.models import Login, Feedback, WorkerCategory, Schedule, Appointment, Bill, Payment
 from django import forms
 
@@ -7,10 +10,29 @@ class Dateinput(forms.DateInput):
 
 class Timeinput(forms.TimeInput):
     input_type = 'time'
+# class CustomerForm(UserCreationForm):
+#     class Meta:
+#         model = Login
+#         fields = ("email","name","address","mobile","profilepicture",'username','password1','password2')
 class CustomerForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
+    mobile = forms.CharField(max_length=10, help_text='Required. Enter a valid 10 digit mobile number.')
+
     class Meta:
         model = Login
         fields = ("email","name","address","mobile","profilepicture",'username','password1','password2')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Login.objects.filter(email=email).exists():
+            raise ValidationError(_('This email address is already in use.'))
+        return email
+
+    def clean_mobile(self):
+        mobile = self.cleaned_data.get('mobile')
+        if not mobile.isdigit() or len(mobile) != 10:
+            raise ValidationError(_('Please enter a valid 10 digit mobile number.'))
+        return mobile
 
 class WorkerForm(UserCreationForm):
     birth_date = forms.DateField(widget=Dateinput)

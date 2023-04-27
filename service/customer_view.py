@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from service.forms import FeedbackForm, PaymentForm
-from service.models import Feedback, Schedule, Login, Appointment, Bill
+from service.models import Feedback, Schedule, Login, Appointment, Bill, Payment
 
 
 def customer_feedback(request):
@@ -70,10 +70,16 @@ def pay_now(request,id):
     form = PaymentForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
+            if Payment.objects.filter(bill=bill, customer=request.user).exists():
+                messages.warning(request, 'You have already made a payment for this bill.')
+                return redirect('pay_opt')
             payment = form.save(commit=False)
             payment.appointment = appointment
             payment.bill = bill
+            payment.amount_paid = bill.amount
             payment.customer = request.user
+            payment.save()
+            payment.status = 1
             payment.save()
             messages.success(request, 'Payment has been successfully processed.')
             return redirect('pay_opt')
@@ -83,5 +89,16 @@ def pay_now(request,id):
 
 def pay_opt(request):
     return render(request,'USER_TEMPLATE/payment_successful.html')
+
+def payed_or_not(request):
+    payments = Payment.objects.filter(customer=request.user)
+    # return render(request, 'USER_TEMPLATE/payment_table.html', {'payments': payments, 'bill': bill})
+    return render(request, 'USER_TEMPLATE/payment_table.html', {'payments': payments})
+
+def pay_success(request,id):
+    data = Payment.objects.get(id=id)
+    data.status=1
+    data.save()
+    return redirect("payed_or_not")
 
 

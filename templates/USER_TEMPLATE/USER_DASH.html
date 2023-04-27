@@ -67,6 +67,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href=" {% url "invoices" %}">Bills</a>
+                    <a class="collapse-item" href=" {% url "payed_or_not" %}">Payment History</a>
                 </div>
             </div>
         </li>
@@ -340,7 +341,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.user.name}}</span>
                             <img class="img-profile rounded-circle"
                                  src=" {% static 'dashb/img/undraw_profile.svg' %} ">
                         </a>

@@ -9,11 +9,15 @@
 </head>
 <body>
 {% block content %}
+<div class="card">
+  <div class="card-body">
 <form method="post">
   {% csrf_token %}
   {{ form }}
     <button type="submit">Save</button>
 </form>
+      </div>
+</div>
 {% endblock %}
 </body>
 </html>
