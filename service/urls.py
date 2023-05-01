@@ -55,6 +55,7 @@ urlpatterns = [
     path('pay_opt', customer_view.pay_opt, name='pay_opt'),
     path('payed_or_not', customer_view.payed_or_not, name='payed_or_not'),
     path('pay_success/<int:id>/', customer_view.pay_success, name='pay_success'),
+    path('invoice_pdf/<int:id>/', customer_view.invoice_pdf, name='invoice_pdf'),
 
 
     #worker

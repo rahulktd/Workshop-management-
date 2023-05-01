@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -19,14 +20,17 @@ def Home(request):
 #
 #
 # login
+@login_required
 def Login(request):
     return render(request, 'Admin/Admin_dash.html')
 
 # WORKER_LOGIN
+@login_required
 def Worker_Login(request):
     return render(request, 'WORKER_TEMPLATE/WORKER_DASH.html')
 
 # USER_LOGIN
+@login_required
 def User_Login1(request):
     return render(request, 'USER_TEMPLATE/USER_DASH.html')
 
@@ -79,6 +83,7 @@ def customer_register(request):
     return render(request, 'USER_TEMPLATE/customer_reg.html', {'customer_form': customer_form})
 
 # # view workers
+@login_required
 def work_view(request):
     data = Login.objects.filter(is_worker=True)
     return render(request, 'WORKER_TEMPLATE/worker_view.html', {"data": data})
@@ -87,6 +92,7 @@ def work_view(request):
 def signup(request):
     return render(request, 'signup_common.html')
 #
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('login_view')

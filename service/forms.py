@@ -10,10 +10,7 @@ class Dateinput(forms.DateInput):
 
 class Timeinput(forms.TimeInput):
     input_type = 'time'
-# class CustomerForm(UserCreationForm):
-#     class Meta:
-#         model = Login
-#         fields = ("email","name","address","mobile","profilepicture",'username','password1','password2')
+
 class CustomerForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
     mobile = forms.CharField(max_length=10, help_text='Required. Enter a valid 10 digit mobile number.')
@@ -21,6 +18,28 @@ class CustomerForm(UserCreationForm):
     class Meta:
         model = Login
         fields = ("email","name","address","mobile","profilepicture",'username','password1','password2')
+        widgets = {'profilepicture':forms.ClearableFileInput(attrs={'style': ' padding-bottom: 10px;padding-top:8px; border-radius: 5px;'})}
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Login.objects.filter(email=email).exists():
+            raise ValidationError(_('This email id is already in use.'))
+        return email
+
+    def clean_mobile(self):
+        mobile = self.cleaned_data.get('mobile')
+        if not mobile.isdigit() or len(mobile) != 10:
+            raise ValidationError(_('Please enter a valid 10 digit mobile number.'))
+        return mobile
+
+class WorkerForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
+    mobile = forms.CharField(max_length=10, help_text='Required. Enter a valid 10 digit mobile number.')
+    birth_date = forms.DateField(widget=Dateinput)
+    class Meta:
+        model = Login
+        fields = ("name",'birth_date',"address","email","mobile","profilepicture","Work_Category",'username','password1','password2')
+        widgets = {'profilepicture':forms.ClearableFileInput(attrs={'style': ' padding-bottom: 10px;padding-top:8px; border-radius: 5px;'})}
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -33,13 +52,6 @@ class CustomerForm(UserCreationForm):
         if not mobile.isdigit() or len(mobile) != 10:
             raise ValidationError(_('Please enter a valid 10 digit mobile number.'))
         return mobile
-
-class WorkerForm(UserCreationForm):
-    birth_date = forms.DateField(widget=Dateinput)
-    class Meta:
-        model = Login
-        fields = ("email","name",'birth_date',"address","mobile","profilepicture","Work_Category",'username','password1','password2')
-        widgets = {'profilepicture':forms.ClearableFileInput(attrs={'style': ' padding-bottom: 10px;padding-top:8px; border-radius: 5px;'})}
 
 class FeedbackForm(forms.ModelForm):
     class Meta:

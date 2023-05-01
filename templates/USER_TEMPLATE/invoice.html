@@ -14,16 +14,18 @@
 
   <h2 class="card-title">Approved Invoices</h2>
   {% if approved_bills %}
-    <table class="table">
+    <table class="table table-bordered caption-top">
+          <caption >List of Invoices</caption>
       <thead>
         <tr>
           <th>Appointment</th>
           <th>Worker</th>
           <th>Amount</th>
-          <th>Pay</th>
+          <th>Payment Options</th>
+          <th>Invoice</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody >
         {% for i in approved_bills %}
           <tr>
             <td>{{ i.appointment }}</td>
@@ -33,6 +35,8 @@
             <a class="btn btn-warning" href="{% url 'pay_now' i.id %}">Pay online</a>
             <a class="btn btn-warning" href="{% url 'pay_success' i.id %}">Pay by cash</a>
         </td>
+            <td>                <a class="btn btn-info" href="{% url 'invoice_pdf' id=i.id %}">Download PDF</a>
+</td>
           </tr>
         {% endfor %}
       </tbody>

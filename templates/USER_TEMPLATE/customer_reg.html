@@ -41,6 +41,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+
+    #div_id_profilepicture{
+	padding-top:20px;
+	}
+
+
+#div_id_email,#div_id_Name,#div_id_Address,#div_id_username,#div_id_password1,#div_id_password2{
+padding-bottom:20px;padding-top:20px;}
+
+
 ol, ul {
   list-style: none;
   margin: 0px;
@@ -795,7 +805,8 @@ input.checkbox:checked:after {
 <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{customer_form|crispy}}
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 3%;width: 100%;height: 60px;background-color: darkgrey;
+}">Register</button>
             </form>
 			</div>
 		</div>

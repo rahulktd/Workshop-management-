@@ -1,8 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from service.forms import ScheduleForm, BillForm
 from service.models import Schedule, Appointment, Bill
 
-
+@login_required
 def schedule(request):
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
@@ -14,11 +15,11 @@ def schedule(request):
     else:
         form = ScheduleForm()
     return render(request, 'WORKER_TEMPLATE/schedule.html', {'form': form})
-
+@login_required
 def view_schedules_worker(request):
     data = Schedule.objects.filter(worker=request.user)
     return render(request, 'WORKER_TEMPLATE/Scheduled_works_worker.html', {'data': data})
-
+@login_required
 def update_schedule(request, id):
     worker = Schedule.objects.get(id=id)
     form = ScheduleForm(instance=worker)
@@ -28,23 +29,23 @@ def update_schedule(request, id):
             form.save()
             return redirect('view_schedules_worker')
     return render(request,'WORKER_TEMPLATE/update_schedule.html', {'form': form})
-
+@login_required
 def delete_schedule(request, id):
     data = Schedule.objects.get(id=id)
     data.delete()
     return redirect("view_schedules_worker")
-
+@login_required
 def booked_app(request):
     data = Schedule.objects.filter(worker=request.user)
     app = Appointment.objects.filter(schedule__in = data)
     return render(request,'WORKER_TEMPLATE/bookings_worker.html',{'app':app})
-
+@login_required
 def approve_booking(request,id):
     data = Appointment.objects.get(id=id)
     data.status=1
     data.save()
     return redirect("booked_app")
-
+@login_required
 def reject_booking(request,id):
     data = Appointment.objects.get(id=id)
     data.status=2
@@ -71,7 +72,7 @@ def reject_booking(request,id):
 #     else:
 #         form = BillForm()
 #     return render(request,'WORKER_TEMPLATE/create_invoice.html',{'form':form,'appointment':appointment})
-
+@login_required
 def create_invoice(request, id):
     appointment = Appointment.objects.get(id=id)
     worker = request.user
@@ -89,12 +90,12 @@ def create_invoice(request, id):
         bill.save()
         return redirect('booked_app')
     return render(request, 'WORKER_TEMPLATE/create_invoice.html', {'appointment': appointment})
-
+@login_required
 def list_invoice(request):
     app = Appointment.objects.all()
     invoices = Bill.objects.all()
     return render(request, 'WORKER_TEMPLATE/invoices_list.html',{'app':app,'invoices':invoices})
-
+@login_required
 def requests_appproved(request):
     approved_bills = Bill.objects.filter(status=1)
     return render(request, 'WORKER_TEMPLATE/approved_list.html', {'approved_bills': approved_bills})
