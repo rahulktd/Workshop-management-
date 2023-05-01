@@ -98,12 +98,11 @@ def pay_opt(request):
 @login_required
 def payed_or_not(request):
     payments = Payment.objects.filter(customer=request.user)
-    # return render(request, 'USER_TEMPLATE/payment_table.html', {'payments': payments, 'bill': bill})
     return render(request, 'USER_TEMPLATE/payment_table.html', {'payments': payments})
 @login_required
 def pay_success(request,id):
     data = Payment.objects.get(id=id)
-    data.status=1
+    data.status = 1
     data.save()
     return redirect("payed_or_not")
 @login_required
@@ -113,7 +112,6 @@ def invoice_pdf(request, id):
     p = canvas.Canvas(buffer)
     p.setFont('Helvetica',18)
     p.drawString(250,750,'Invoice')
-
 
     p.rect(50, 50, 500, 750, stroke=1, fill=0)
     p.drawString(100, 700, f"Customer Name: {bill.customer.name}")
