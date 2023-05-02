@@ -26,11 +26,16 @@
             <div class="form-actions form-group">
                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
             </div>
+
             {%for message in messages%}
             <div class="alert alert-primary" role="alert">
                 {{message}}
+
             </div>
             {%endfor%}
+
+
+
         </form>
 
     </div>

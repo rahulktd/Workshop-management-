@@ -65,7 +65,7 @@ def worker_register(request):
             user = worker_form.save(commit=False)
             user.is_worker = True
             user.save()
-            messages.info(request, 'Worker Registration Successful')
+            messages.success(request, 'Worker Registration Successful')
             return redirect('login_view')
     return render(request, 'WORKER_TEMPLATE/work_reg_form.html', {'worker_form': worker_form})
 

@@ -8,6 +8,16 @@
     <title>Title</title>
 </head>
 <body>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-dismissible alert-success">
+      <button type="button" class="close" data-dismiss="alert">
+      ×
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+ {% endfor %}
+{% endif %}
 <table class="table">
   <thead>
     <tr>
