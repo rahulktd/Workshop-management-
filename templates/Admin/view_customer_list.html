@@ -10,6 +10,14 @@
 {% block content %}
 <div class="card">
   <div class="card-body">
+      <div>
+          <form method="get" class="form-inline">
+          <div class="md-form my-0">
+              {{customer_filter.form}}
+              <button class="btn btn-primary" type="submit">Search</button>
+          </div>
+      </form>
+      </div>
 <table class="table table-hover table-bordered border-primary">
     <thead>
     <tr>
@@ -21,7 +29,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for i in data %}
+    {% for i in customer_list %}
     <tr>
         <td scope="row">{{i.name}}</td>
         <td scope="row">{{i.mobile}}</td>

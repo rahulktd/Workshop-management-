@@ -2,20 +2,47 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render, redirect
+
+from service.filters import WorkerFilter, CustomerFilter
 from service.forms import WorkerForm, SkillForm, ScheduleForm, BillApprovalForm
 from service.models import Login, Feedback, WorkerCategory, Schedule, Appointment, Bill, Payment
 
 @login_required(login_url='/login_view/')
 def admin_login(request):
     return render(request,'Admin/Admin_dash.html')
+# @login_required(login_url='/login_view/')
+# def worker_view(request):
+#     data = Login.objects.filter(is_worker=True)
+#     return render(request, 'Admin/view_workers_list.html', {"data": data})
 @login_required(login_url='/login_view/')
 def worker_view(request):
-    data = Login.objects.filter(is_worker=True)
-    return render(request, 'Admin/view_workers_list.html', {"data": data})
+    worker_list = Login.objects.filter(is_worker=True)
+    worker_filter = WorkerFilter(request.GET, queryset=worker_list)
+    worker_list = worker_filter.qs
+    return render(request, 'Admin/view_workers_list.html', {"worker_list": worker_list, "worker_filter": worker_filter})
+# @login_required(login_url='/login_view/')
+# def worker_view(request):
+#     worker_filter = WorkerFilter(request.GET or None, queryset=Login.objects.filter(is_worker=True))
+#     workers = worker_filter.qs
+#     context = {
+#         'workers': workers,
+#         'worker_filter': worker_filter,
+#     }
+#     return render(request, 'Admin/view_workers_list.html', context)
+
+
+# @login_required(login_url='/login_view/')
+# def customer_view(request):
+#     data = Login.objects.filter(is_user=True)
+#     return render(request, 'Admin/view_customer_list.html', {"data": data})
+
 @login_required(login_url='/login_view/')
 def customer_view(request):
-    data = Login.objects.filter(is_user=True)
-    return render(request, 'Admin/view_customer_list.html', {"data": data})
+    customer_list = Login.objects.filter(is_user=True)
+    customer_filter = CustomerFilter(request.GET, queryset=customer_list)
+    customer_list = customer_filter.qs
+    return render(request, 'Admin/view_customer_list.html', {"customer_list": customer_list, "customer_filter": customer_filter})
+
 @login_required(login_url='/login_view/')
 def delete_customer(request, id):
     data = Login.objects.get(id=id)
@@ -124,3 +151,22 @@ def payments_customer(request):
     payment = Payment.objects.filter(status=1)
     total_amount = payment.aggregate(Sum('amount_paid'))['amount_paid__sum']
     return render(request, 'Admin/history_of_pay.html', {'payment': payment,'total_amount': total_amount})
+
+def view_worker_search(request):
+    # a = Login.objects.filter(is_worker=True)
+    # workerFilter = WorkerFilter(request.GET, queryset=a)
+    # a = workerFilter.qs
+    # context = {
+    #     'worker':a,
+    #     'workerFilter': workerFilter
+    # }
+    # return render(request,'Admin/view_workers_list.html',context)
+    worker_list = Login.objects.filter(type='worker')
+    worker_filter = WorkerFilter(request.GET, queryset=worker_list)
+    worker_list = worker_filter.qs
+
+    context = {
+        'worker_list': worker_list,
+        'worker_filter': worker_filter,
+    }
+    return render(request, 'Admin/view_workers_list.html', context)

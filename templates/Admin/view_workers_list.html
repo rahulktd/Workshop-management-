@@ -1,15 +1,19 @@
 {% extends "Admin/Admin_dash.html" %}
+{%load crispy_forms_tags %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 <body>
 {% block content %}
 <div class="card">
   <div class="card-body">
+      <div style="padding-bottom:10px;">
+      <form method="get" class="form-inline">
+          <div class="md-form my-0">
+              {{worker_filter.form|crispy}}
+
+              <button class="btn btn-primary" type="submit">Search</button>
+          </div>
+      </form>
+          </div>
 <table class="table table-hover table-bordered border-primary">
     <thead>
     <tr>
@@ -24,7 +28,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for i in data %}
+    {% for i in worker_list %}
     <tr>
         <td scope="row">{{i.name}}</td>
         <td scope="row">{{i.age}}</td>
@@ -56,6 +60,7 @@
     {% endfor %}
     </tbody>
 </table>
+
       </div>
 </div>
 {% endblock %}
