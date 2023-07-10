@@ -20,8 +20,6 @@ This project aims to provide a web application for managing workshops and relate
 
 ## Contact
 
-If you have any questions or inquiries about this project, please contact [rahulktd](https://github.com/rahulktd/)https://github.com/rahulktd/
+If you have any questions or inquiries about this project, please contact [rahulktd](https://github.com/rahulktd/)
 
-
-Feel free to adjust the content according to your preferences and add any additional sections or details that you find necessary.
 
